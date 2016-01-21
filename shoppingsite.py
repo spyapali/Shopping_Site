@@ -71,27 +71,54 @@ def shopping_cart():
     #     else:
     #         melon_count[melon] += 1
 
-    # price = melons.get_all([price])
+
+    #***********************Our pseudocode**********************
+    melon_ids = session["cart"]
+    cart = {} #(id is the key and the value is the name, quantity, price and total )
+    for melon_id in melon_ids:
+
+        current_melon = melons.get_by_id(melon_id)
+        price = current_melon.price
+        common_name = current_melon.common_name
+        # quantity = 1
+
+        if melon_id not in cart:
+            quantity = 1
+            total = quantity * price 
+            cart[melon_id] = [common_name, price, quantity, total]
+        else:
+          quantity += 1 
+          total = quantity * price 
+          cart[melon_id] = [common_name, price, quantity, total]
+
+          
+
+    print cart 
 
 
+    # for current_melon in cart:
+    #     common_name = cart[current_melon][0]
+    #     price = cart[current_melon][1]
+    #     quantity = cart[current_melon][2]
+    #     total = cart[current_melon][3]    
+    # common_name = cart[melon_id][0]
+    # price = cart[melon_id][1]
+    # quantity = cart[melon_id][2]
+    # total = cart[melon_id][3]
 
+    # # TODO: Display the contents of the shopping cart.
 
+    # # The logic here will be something like:
+    # #
+    # # - get the list-of-ids-of-melons from the session cart
+    # # - loop over this list:
+    # #   - keep track of information about melon types in the cart
+    # #   - keep track of the total amt ordered for a melon-typels
 
+    # #   - keep track of the total amt of the entire order
+    # # - hand to the template the total order cost and the list of melon types
 
-
-    # TODO: Display the contents of the shopping cart.
-
-    # The logic here will be something like:
-    #
-    # - get the list-of-ids-of-melons from the session cart
-    # - loop over this list:
-    #   - keep track of information about melon types in the cart
-    #   - keep track of the total amt ordered for a melon-typels
-
-    #   - keep track of the total amt of the entire order
-    # - hand to the template the total order cost and the list of melon types
-
-    # return render_template("cart.html", Quantity=melon_count[melon])
+    return render_template("cart.html", cart = cart)
 
 
 @app.route("/add_to_cart/<int:id>")
@@ -109,6 +136,7 @@ def add_to_cart(id):
         
 
     flash("Melon successfully added to cart!")
+    return redirect("/cart")
 
 
     # TODO: Finish shopping cart functionality
@@ -117,7 +145,7 @@ def add_to_cart(id):
     #
     # - add the id of the melon they bought to the cart in the session
 
-    return render_template("cart.html")
+    # return render_template("cart.html")
 
 
 @app.route("/login", methods=["GET"])

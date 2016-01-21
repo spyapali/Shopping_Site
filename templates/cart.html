@@ -3,6 +3,7 @@
 
 {% block body %}
 
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -12,34 +13,18 @@
             <th>Total</th>
         </tr>
         </thead>
-      <!--   <tbody>
+        {% for melon in cart.values() %}
         <tr>
-            <td>{{ Common Name }}</td>
-            <td>{{ Quantity }}</td>
-            <td>$3.00</td>
-            <td>$15.00</td>
-        </tr> -->
-      <!--   <tr>
-            <td>Charleston Gray</td>
-            <td>2</td>
-            <td>$2.00</td>
-            <td>$4.00</td>
+            <td>{{ melon[0] }}</td>
+            <td>{{ melon[2] }}</td>
+            <td>{{ melon[1] }}</td>
+            <td>{{ melon[3] }}</td>
         </tr>
-        <tr>
-            <td>Crenshaw</td>
-            <td>1</td>
-            <td>$2.00</td>
-            <td>$2.00</td>
-        </tr>
-        <tr>
-            <td>Ledmon Watermelon</td>
-            <td>2</td>
-            <td>$3.00</td>
-            <td>$6.00</td>
-        </tr> -->
-<!--         </tbody>
+        {% endfor %}
+
+
     </table>
- -->
+
     <h3>Total: </h3>
 
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
